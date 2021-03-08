@@ -23,31 +23,35 @@ class RegisterController extends StatefulWidget {
 }
 
 class _RegisterControllerState extends State<RegisterController> {
-  final _state = initialRegisterState;
-
-  var _isLoading = false;
-  void _setIsLoading(bool isLoading) {
+  RegisterState _state = const ReadyRegisterState();
+  RegisterState get state => _state;
+  set state(RegisterState newState) {
     setState(() {
-      _isLoading = isLoading;
+      _state = newState;
     });
   }
 
+  final emailController = TextEditingController();
+
   Future<void> processEmail(BuildContext currentContext) async {
-    if (_isLoading) {
+    // Hide keyboard
+    FocusScope.of(currentContext).unfocus();
+
+    if (state is LoadingRegisterState) {
       return;
     }
-    _setIsLoading(true);
+    state = const LoadingRegisterState();
 
     try {
-      await widget.processEmail(_state.emailController.text);
+      await widget.processEmail(emailController.text);
       await push(
         context: currentContext,
         page: const RegisterPasswordPage(),
       );
 
-      _setIsLoading(false);
+      state = const ReadyRegisterState();
     } catch (e) {
-      _setIsLoading(false);
+     state = const ReadyRegisterState();
 
       if (e is EmptyEmailException) {
         showSnackBar(
@@ -71,7 +75,6 @@ class _RegisterControllerState extends State<RegisterController> {
     return RegisterInherited(
       controllerState: this,
       state: _state,
-      isLoading: _isLoading,
       child: widget.child,
     );
   }

@@ -1,32 +1,13 @@
 part of 'register_controller.dart';
 
-RegisterState get initialRegisterState {
-  return RegisterState(
-    emailController: TextEditingController(),
-  );
+abstract class RegisterState {
+  const RegisterState();
 }
 
-class RegisterState {
-  const RegisterState({
-    required this.emailController,
-  });
+class LoadingRegisterState extends RegisterState {
+  const LoadingRegisterState();
+}
 
-  final TextEditingController emailController;
-
-  RegisterState copyWith({
-    TextEditingController? emailController,
-  }) {
-    return RegisterState(
-      emailController: emailController ?? this.emailController,
-    );
-  }
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-    return o is RegisterState && o.emailController == emailController;
-  }
-
-  @override
-  int get hashCode => emailController.hashCode;
+class ReadyRegisterState extends RegisterState {
+  const ReadyRegisterState();
 }

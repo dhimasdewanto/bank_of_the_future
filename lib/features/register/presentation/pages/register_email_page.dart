@@ -58,19 +58,20 @@ class RegisterEmailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: sizeL),
                     TextField(
-                      controller: state.emailController,
+                      controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.mail_outline),
                         labelText: "Email",
                       ),
+                      onEditingComplete: () => controller.processEmail(context),
                     ),
                   ],
                 ),
               ),
               BigButtonBottom(
                 onPressed: () => controller.processEmail(context),
-                showLoadingIndicator: inherit.isLoading,
+                showLoadingIndicator: state is LoadingRegisterState,
                 title: "Next",
               ),
             ],
