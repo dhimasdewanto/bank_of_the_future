@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'core/app_settings.dart';
+import 'core/injection.dart';
 import 'core/theme_data.dart';
 import 'features/register/presentation/controllers/register/register_controller.dart';
 import 'features/register/presentation/pages/register_email_page.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: themeData,
       builder: (context, child) {
         return RegisterController(
+          processEmail: processEmail,
           child: child ?? const Offstage(),
         );
       },

@@ -13,6 +13,7 @@ class RegisterEmailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final inherit = RegisterInherited.of(context);
     final state = inherit.state;
+    final controller = inherit.controllerState;
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final thickHeadline4 = textTheme.headline4?.copyWith(
@@ -52,6 +53,7 @@ class RegisterEmailPage extends StatelessWidget {
                   const SizedBox(height: sizeL),
                   TextField(
                     controller: state.emailController,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.mail_outline),
                       labelText: "Email",
@@ -64,7 +66,7 @@ class RegisterEmailPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(sizeL),
             child: BigButtonBottom(
-              onPressed: () {},
+              onPressed: () => controller.processEmail(context),
               title: "Next",
             ),
           ),
