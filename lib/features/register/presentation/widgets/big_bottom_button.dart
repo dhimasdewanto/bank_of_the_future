@@ -20,6 +20,11 @@ class BigButtonBottom extends StatelessWidget {
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+            (states) => Colors.blue.shade400,
+          ),
+        ),
         onPressed: onPressed,
         child: showLoadingIndicator
             ? CircularProgressIndicator(
