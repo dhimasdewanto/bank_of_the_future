@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'core/app_settings.dart';
-import 'features/register/presentation/widgets/register_email_page.dart';
+import 'core/theme_data.dart';
+import 'features/register/presentation/controllers/register/register_controller.dart';
+import 'features/register/presentation/pages/register_email_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -10,9 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: appName,
-      home: RegisterEmailPage(),
+      home: const RegisterEmailPage(),
+      theme: themeData,
+      builder: (context, child) {
+        return RegisterController(
+          child: child ?? const Offstage(),
+        );
+      },
     );
   }
 }
