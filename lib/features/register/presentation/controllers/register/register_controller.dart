@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/navigators.dart';
 import '../../../../../core/snackbars.dart';
+import '../../../domain/entitites/password_status.dart';
+import '../../../domain/use_cases/check_password_status.dart';
 import '../../../domain/use_cases/process_email.dart';
 import '../../pages/register_password_page.dart';
 
@@ -13,10 +15,12 @@ class RegisterController extends StatefulWidget {
     Key? key,
     required this.child,
     required this.processEmail,
+    required this.checkPasswordStatus,
   }) : super(key: key);
 
   final Widget child;
   final ProcessEmail processEmail;
+  final CheckPasswordStatus checkPasswordStatus;
 
   @override
   _RegisterControllerState createState() => _RegisterControllerState();
@@ -31,7 +35,20 @@ class _RegisterControllerState extends State<RegisterController> {
     });
   }
 
+  PasswordStatus _passwordStatus = PasswordStatus();
+  PasswordStatus get passwordStatus => _passwordStatus;
+  set passwordStatus(PasswordStatus value) {
+    setState(() {
+      _passwordStatus = value;
+    });
+  }
+
   final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void checkPasswordStatus() {
+    passwordStatus = widget.checkPasswordStatus(passwordController.text);
+  }
 
   Future<void> processEmail(BuildContext currentContext) async {
     // Hide keyboard
@@ -75,6 +92,7 @@ class _RegisterControllerState extends State<RegisterController> {
     return RegisterInherited(
       controllerState: this,
       state: _state,
+      passwordStatus: passwordStatus,
       child: widget.child,
     );
   }

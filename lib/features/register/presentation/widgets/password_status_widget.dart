@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../controllers/register/register_controller.dart';
+
 class PasswordStatusWidget extends StatelessWidget {
   const PasswordStatusWidget({
     Key? key,
@@ -14,31 +16,51 @@ class PasswordStatusWidget extends StatelessWidget {
     final bodyText2 = Theme.of(context).textTheme.bodyText2?.copyWith(
           color: textColor,
         );
+    final inherit = RegisterInherited.of(context);
+    final passwordStatus = inherit.passwordStatus;
+
+    final checkIcon = Icon(
+      Icons.check_circle,
+      color: Theme.of(context).accentColor,
+      size: (headline4?.fontSize ?? 10) + 5,
+    );
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           children: [
-            Text("a", style: headline4),
+            if (passwordStatus.hasLowerCase)
+              checkIcon
+            else
+              Text("a", style: headline4),
             Text("Lower Case", style: bodyText2),
           ],
         ),
         Column(
           children: [
-            Text("A", style: headline4),
+            if (passwordStatus.hasUpperCase)
+              checkIcon
+            else
+              Text("A", style: headline4),
             Text("Upper Case", style: bodyText2),
           ],
         ),
         Column(
           children: [
-            Text("123", style: headline4),
+            if (passwordStatus.hasNumber)
+              checkIcon
+            else
+              Text("123", style: headline4),
             Text("Number", style: bodyText2),
           ],
         ),
         Column(
           children: [
-            Text("9+", style: headline4),
+            if (passwordStatus.hasTotal)
+              checkIcon
+            else
+              Text("9+", style: headline4),
             Text("Characters", style: bodyText2),
           ],
         ),

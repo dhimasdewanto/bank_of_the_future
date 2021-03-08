@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/app_settings.dart';
+import '../controllers/register/register_controller.dart';
 
 class PasswordField extends StatefulWidget {
   const PasswordField({
@@ -24,6 +25,8 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     final backgroundColor = Theme.of(context).canvasColor;
     final textColor = Theme.of(context).textTheme.bodyText1?.color;
+    final inherit = RegisterInherited.of(context);
+    final controller = inherit.controllerState;
 
     return Container(
       decoration: BoxDecoration(
@@ -35,6 +38,7 @@ class _PasswordFieldState extends State<PasswordField> {
         vertical: sizeS,
       ),
       child: TextField(
+        controller: controller.passwordController,
         obscureText: _isHide,
         decoration: InputDecoration(
           suffixIcon: IconButton(
@@ -47,7 +51,7 @@ class _PasswordFieldState extends State<PasswordField> {
           hintText: "Password",
           border: InputBorder.none,
         ),
-        onEditingComplete: () {},
+        onChanged: (_) => controller.checkPasswordStatus(),
       ),
     );
   }

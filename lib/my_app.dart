@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: themeData,
       builder: (context, child) {
         return RegisterController(
+          checkPasswordStatus: checkPasswordStatus,
           processEmail: processEmail,
           child: child ?? const Offstage(),
         );
