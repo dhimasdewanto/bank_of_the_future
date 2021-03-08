@@ -67,6 +67,7 @@ class RegisterEmailPage extends StatelessWidget {
             padding: const EdgeInsets.all(sizeL),
             child: BigButtonBottom(
               onPressed: () => controller.processEmail(context),
+              showLoadingIndicator: inherit.isLoading,
               title: "Next",
             ),
           ),

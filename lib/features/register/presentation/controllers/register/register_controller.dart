@@ -25,14 +25,30 @@ class RegisterController extends StatefulWidget {
 class _RegisterControllerState extends State<RegisterController> {
   final _state = initialRegisterState;
 
+  var _isLoading = false;
+  void _setIsLoading(bool isLoading) {
+    setState(() {
+      _isLoading = isLoading;
+    });
+  }
+
   Future<void> processEmail(BuildContext currentContext) async {
+    if (_isLoading) {
+      return;
+    }
+    _setIsLoading(true);
+
     try {
       await widget.processEmail(_state.emailController.text);
       await push(
         context: currentContext,
         page: const RegisterPasswordPage(),
       );
+
+      _setIsLoading(false);
     } catch (e) {
+      _setIsLoading(false);
+
       if (e is EmptyEmailException) {
         showSnackBar(
           context: currentContext,
@@ -55,6 +71,7 @@ class _RegisterControllerState extends State<RegisterController> {
     return RegisterInherited(
       controllerState: this,
       state: _state,
+      isLoading: _isLoading,
       child: widget.child,
     );
   }

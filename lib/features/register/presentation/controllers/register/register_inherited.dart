@@ -5,6 +5,7 @@ class RegisterInherited extends InheritedWidget {
     Key? key,
     required this.controllerState,
     required this.state,
+    required this.isLoading,
     required Widget child,
   }) : super(
           key: key,
@@ -16,15 +17,17 @@ class RegisterInherited extends InheritedWidget {
         RegisterInherited(
           controllerState: _RegisterControllerState(),
           state: initialRegisterState,
+          isLoading: false,
           child: const Offstage(),
         );
   }
 
   final _RegisterControllerState controllerState;
   final RegisterState state;
+  final bool isLoading;
 
   @override
   bool updateShouldNotify(RegisterInherited oldWidget) {
-    return oldWidget.state != state;
+    return oldWidget.state != state || oldWidget.isLoading != isLoading;
   }
 }

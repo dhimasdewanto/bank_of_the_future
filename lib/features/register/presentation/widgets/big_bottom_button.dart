@@ -5,19 +5,29 @@ class BigButtonBottom extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.title,
+    this.showLoadingIndicator = false,
   }) : super(key: key);
 
   final void Function() onPressed;
   final String title;
+  final bool showLoadingIndicator;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(title),
+        child: showLoadingIndicator
+            ? CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  theme.canvasColor,
+                ),
+              )
+            : Text(title),
       ),
     );
   }
