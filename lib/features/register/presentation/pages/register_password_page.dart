@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/app_settings.dart';
 import '../widgets/big_bottom_button.dart';
+import '../widgets/password_field.dart';
 import '../widgets/password_status_widget.dart';
 import '../widgets/top_page_numbers.dart';
 
@@ -47,28 +48,7 @@ class RegisterPasswordPage extends StatelessWidget {
                       style: bodyText1,
                     ),
                     const SizedBox(height: sizeL),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: textColor,
-                        borderRadius: borderRadius,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: sizeM,
-                        vertical: sizeS,
-                      ),
-                      child: TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.remove_red_eye),
-                          ),
-                          hintText: "Password",
-                          border: InputBorder.none,
-                        ),
-                        onEditingComplete: () {},
-                      ),
-                    ),
+                    const PasswordField(),
                     const SizedBox(height: sizeM),
                     Row(
                       children: [
