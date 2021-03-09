@@ -52,6 +52,7 @@ class _PasswordFieldState extends State<PasswordField> {
           border: InputBorder.none,
         ),
         onChanged: (_) => controller.checkPasswordStatus(),
+        onEditingComplete: () => controller.processPassword(context),
       ),
     );
   }

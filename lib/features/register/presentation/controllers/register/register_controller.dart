@@ -6,6 +6,7 @@ import '../../../domain/entitites/password_status.dart';
 import '../../../domain/use_cases/check_password_status.dart';
 import '../../../domain/use_cases/process_email.dart';
 import '../../pages/register_password_page.dart';
+import '../../pages/register_personal_page.dart';
 
 part 'register_inherited.dart';
 part 'register_state.dart';
@@ -50,6 +51,23 @@ class _RegisterControllerState extends State<RegisterController> {
     passwordStatus = widget.checkPasswordStatus(passwordController.text);
   }
 
+  void processPassword(BuildContext currentContext) {
+    if (passwordStatus.hasLowerCase &&
+        passwordStatus.hasUpperCase &&
+        passwordStatus.hasNumber &&
+        passwordStatus.hasTotal) {
+      push(
+        context: currentContext,
+        page: const RegisterPersonalPage(),
+      );
+      return;
+    }
+    showSnackBar(
+      context: currentContext,
+      message: "Please fill correct password",
+    );
+  }
+
   Future<void> processEmail(BuildContext currentContext) async {
     // Hide keyboard
     FocusScope.of(currentContext).unfocus();
@@ -68,7 +86,7 @@ class _RegisterControllerState extends State<RegisterController> {
 
       state = const ReadyRegisterState();
     } catch (e) {
-     state = const ReadyRegisterState();
+      state = const ReadyRegisterState();
 
       if (e is EmptyEmailException) {
         showSnackBar(
