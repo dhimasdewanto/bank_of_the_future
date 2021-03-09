@@ -1,6 +1,6 @@
 {
-    "name": "bank_of_the_future",
-    "short_name": "bank_of_the_future",
+    "name": "Bank of the Future",
+    "short_name": "Future Bank",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

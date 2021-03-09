@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dhimasdewanto.bank_of_the_future">
    <application
-        android:label="bank_of_the_future"
+        android:label="Bank of the Future"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

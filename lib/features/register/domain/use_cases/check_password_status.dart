@@ -34,7 +34,7 @@ class CheckPasswordStatus {
 
   PasswordStrength _getPasswordStrength(String password) {
     final strength = _estimateBruteforceStrength(password);
-    print("Strength = $strength");
+    
     if (strength >= 0 && strength <= 0.25) {
       return PasswordStrength.veryWeak;
     }
