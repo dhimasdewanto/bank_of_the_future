@@ -21,7 +21,7 @@ class PasswordStatusWidget extends StatelessWidget {
 
     final checkIcon = Icon(
       Icons.check_circle,
-      color: Theme.of(context).accentColor,
+      color: Colors.lime,
       size: (headline4?.fontSize ?? 10) + 5,
     );
 
