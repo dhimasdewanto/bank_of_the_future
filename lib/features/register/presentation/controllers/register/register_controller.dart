@@ -52,6 +52,9 @@ class _RegisterControllerState extends State<RegisterController> {
   }
 
   void processPassword(BuildContext currentContext) {
+    // Hide keyboard
+    FocusScope.of(currentContext).unfocus();
+
     if (passwordStatus.hasLowerCase &&
         passwordStatus.hasUpperCase &&
         passwordStatus.hasNumber &&
