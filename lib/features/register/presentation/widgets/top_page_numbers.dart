@@ -17,7 +17,7 @@ class TopPageNumbers extends StatelessWidget {
 
   List<Widget> _getlistNumberWidgets(BuildContext context) {
     final bodyText1 = Theme.of(context).textTheme.bodyText1;
-    final accentColor = Theme.of(context).accentColor;
+    final canvasColor = Theme.of(context).canvasColor;
 
     final _listWidgets = <Widget>[];
     for (var i = 0; i < total; i++) {
@@ -28,7 +28,7 @@ class TopPageNumbers extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(),
             borderRadius: BorderRadius.circular(50),
-            color: i <= index ? accentColor : Colors.white,
+            color: i <= index ? Colors.lime : canvasColor,
           ),
           padding: const EdgeInsets.all(sizeM),
           child: Center(
