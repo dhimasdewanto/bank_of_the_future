@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/app_settings.dart';
 import '../controllers/register/register_controller.dart';
 import '../widgets/big_bottom_button.dart';
+import '../widgets/icon_animation.dart';
 import '../widgets/schedule_select_button.dart';
 import '../widgets/top_page_numbers.dart';
 
@@ -110,6 +111,8 @@ class RegisterSchedulePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const IconAnimation(),
+                    const SizedBox(height: sizeL),
                     Text(
                       "Schedule Video Call",
                       style: headline6,
