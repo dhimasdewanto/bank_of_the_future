@@ -70,11 +70,33 @@ class _RegisterControllerState extends State<RegisterController> {
     });
   }
 
+  DateTime? _scheduleVideoCall;
+  DateTime? get scheduleVideoCall => _scheduleVideoCall;
+  set scheduleVideoCall(DateTime? scheduleVideoCall) {
+    setState(() {
+      _scheduleVideoCall = scheduleVideoCall;
+    });
+  }
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void checkPasswordStatus() {
     passwordStatus = widget.checkPasswordStatus(passwordController.text);
+  }
+
+  void processSchedule(BuildContext currentContext) {
+    if (scheduleVideoCall == null) {
+      showSnackBar(
+        context: currentContext,
+        message: "Please select schedule for video call",
+      );
+    } else {
+      showSnackBar(
+        context: currentContext,
+        message: "Success register",
+      );
+    }
   }
 
   void processPersonalInformation(BuildContext currentContext) {
