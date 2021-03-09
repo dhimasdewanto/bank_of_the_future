@@ -4,8 +4,8 @@ abstract class RegisterState {
   const RegisterState();
 }
 
-class LoadingRegisterState extends RegisterState {
-  const LoadingRegisterState();
+class EmailLoadingState extends RegisterState {
+  const EmailLoadingState();
 }
 
 class ReadyRegisterState extends RegisterState {

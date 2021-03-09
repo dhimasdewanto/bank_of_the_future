@@ -139,10 +139,10 @@ class _RegisterControllerState extends State<RegisterController> {
     // Hide keyboard
     FocusScope.of(currentContext).unfocus();
 
-    if (state is LoadingRegisterState) {
+    if (state is EmailLoadingState) {
       return;
     }
-    state = const LoadingRegisterState();
+    state = const EmailLoadingState();
 
     try {
       await widget.processEmail(emailController.text);

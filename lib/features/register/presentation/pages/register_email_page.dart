@@ -71,7 +71,7 @@ class RegisterEmailPage extends StatelessWidget {
               ),
               BigButtonBottom(
                 onPressed: () => controller.processEmail(context),
-                showLoadingIndicator: state is LoadingRegisterState,
+                showLoadingIndicator: state is EmailLoadingState,
                 title: "Next",
               ),
             ],
