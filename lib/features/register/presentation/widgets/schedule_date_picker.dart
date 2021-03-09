@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/register/register_controller.dart';
@@ -79,21 +82,76 @@ class ScheduleDatePicker extends StatelessWidget {
     final controller = inherit.controllerState;
     final schedule = inherit.scheduleVideoCall;
     final scheduleDate = schedule.date;
-    
+
+    final minDate = DateTime.now();
+    final maxDate = DateTime.now().add(
+      const Duration(days: 30),
+    );
+
     return ScheduleSelectButton(
       title: "Date",
       value: scheduleDate == null
           ? "- Choose Date -"
           : "${_getDayName(scheduleDate.weekday)}, ${scheduleDate.day} ${_getMonthName(scheduleDate.month)} ${scheduleDate.year}",
       onPressed: () async {
-        final newDate = await showDatePicker(
-          context: context,
-          initialDate: scheduleDate ?? DateTime.now(),
-          firstDate: DateTime.now(),
-          lastDate: DateTime.now().add(
-            const Duration(days: 30),
-          ),
-        );
+        DateTime? newDate;
+
+        if (Platform.isIOS) {
+          newDate = await showModalBottomSheet<DateTime>(
+            context: context,
+            builder: (context) {
+              DateTime? tempPickedDate;
+
+              return Container(
+                height: 250,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        CupertinoButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        CupertinoButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(tempPickedDate);
+                          },
+                          child: const Text('Done'),
+                        ),
+                      ],
+                    ),
+                    const Divider(
+                      height: 0,
+                      thickness: 1,
+                    ),
+                    Expanded(
+                      child: CupertinoDatePicker(
+                        initialDateTime: scheduleDate ?? DateTime.now(),
+                        minimumDate: minDate,
+                        maximumDate: maxDate,
+                        mode: CupertinoDatePickerMode.date,
+                        onDateTimeChanged: (dateTime) {
+                          tempPickedDate = dateTime;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        } else {
+          newDate = await showDatePicker(
+            context: context,
+            initialDate: scheduleDate ?? DateTime.now(),
+            firstDate: minDate,
+            lastDate: maxDate,
+          );
+        }
+
         controller.scheduleVideoCall = controller.scheduleVideoCall.copyWith(
           date: newDate,
         );
