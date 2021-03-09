@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/app_settings.dart';
 import '../widgets/big_bottom_button.dart';
+import '../widgets/password_complexity_widget.dart';
 import '../widgets/password_field.dart';
 import '../widgets/password_status_widget.dart';
 import '../widgets/top_page_numbers.dart';
@@ -50,20 +51,7 @@ class RegisterPasswordPage extends StatelessWidget {
                     const SizedBox(height: sizeL),
                     const PasswordField(),
                     const SizedBox(height: sizeM),
-                    Row(
-                      children: [
-                        Text(
-                          "Complexity: ",
-                          style: bodyText1,
-                        ),
-                        Text(
-                          "Very Weak",
-                          style: bodyText1?.copyWith(
-                            color: Colors.amber,
-                          ),
-                        ),
-                      ],
-                    ),
+                    const PasswordComplexityWidget(),
                     const SizedBox(height: sizeL),
                     const PasswordStatusWidget(),
                   ],

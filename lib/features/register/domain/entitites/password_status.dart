@@ -1,22 +1,27 @@
+import 'password_strength.dart';
+
 class PasswordStatus {
   PasswordStatus({
     this.hasLowerCase = false,
-    this.hasUpperCase = false,
     this.hasNumber = false,
     this.hasTotal = false,
+    this.hasUpperCase = false,
+    this.strength = PasswordStrength.veryWeak,
   });
 
   final bool hasLowerCase;
   final bool hasNumber;
   final bool hasTotal;
   final bool hasUpperCase;
+  final PasswordStrength strength;
 
   @override
   int get hashCode {
     return hasLowerCase.hashCode ^
-        hasUpperCase.hashCode ^
         hasNumber.hashCode ^
-        hasTotal.hashCode;
+        hasTotal.hashCode ^
+        hasUpperCase.hashCode ^
+        strength.hashCode;
   }
 
   @override
@@ -25,31 +30,25 @@ class PasswordStatus {
 
     return o is PasswordStatus &&
         o.hasLowerCase == hasLowerCase &&
-        o.hasUpperCase == hasUpperCase &&
         o.hasNumber == hasNumber &&
-        o.hasTotal == hasTotal;
+        o.hasTotal == hasTotal &&
+        o.hasUpperCase == hasUpperCase &&
+        o.strength == strength;
   }
 
   PasswordStatus copyWith({
     bool? hasLowerCase,
-    bool? hasUpperCase,
     bool? hasNumber,
     bool? hasTotal,
+    bool? hasUpperCase,
+    PasswordStrength? strength,
   }) {
     return PasswordStatus(
       hasLowerCase: hasLowerCase ?? this.hasLowerCase,
-      hasUpperCase: hasUpperCase ?? this.hasUpperCase,
       hasNumber: hasNumber ?? this.hasNumber,
       hasTotal: hasTotal ?? this.hasTotal,
+      hasUpperCase: hasUpperCase ?? this.hasUpperCase,
+      strength: strength ?? this.strength,
     );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'hasLowerCase': hasLowerCase,
-      'hasUpperCase': hasUpperCase,
-      'hasNumber': hasNumber,
-      'hasTotal': hasTotal,
-    };
   }
 }
