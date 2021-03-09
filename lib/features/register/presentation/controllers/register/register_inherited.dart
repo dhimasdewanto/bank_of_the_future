@@ -6,6 +6,7 @@ class RegisterInherited extends InheritedWidget {
     required this.controllerState,
     required this.state,
     required this.passwordStatus,
+    required this.personalInformation,
     required Widget child,
   }) : super(
           key: key,
@@ -18,6 +19,11 @@ class RegisterInherited extends InheritedWidget {
           controllerState: _RegisterControllerState(),
           state: const ReadyRegisterState(),
           passwordStatus: PasswordStatus(),
+          personalInformation: PersonalInformation(
+            listGoalActivation: [],
+            listMonthlyExpense: [],
+            listMonthlyIncome: [],
+          ),
           child: const Offstage(),
         );
   }
@@ -25,9 +31,12 @@ class RegisterInherited extends InheritedWidget {
   final _RegisterControllerState controllerState;
   final RegisterState state;
   final PasswordStatus passwordStatus;
+  final PersonalInformation personalInformation;
 
   @override
   bool updateShouldNotify(RegisterInherited oldWidget) {
-    return oldWidget.state != state || oldWidget.passwordStatus != passwordStatus;
+    return oldWidget.state != state ||
+        oldWidget.passwordStatus != passwordStatus ||
+        oldWidget.personalInformation != personalInformation;
   }
 }

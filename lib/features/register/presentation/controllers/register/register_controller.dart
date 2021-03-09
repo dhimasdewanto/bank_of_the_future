@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../../../core/navigators.dart';
 import '../../../../../core/snackbars.dart';
 import '../../../domain/entitites/password_status.dart';
+import '../../../domain/entitites/personal_information.dart';
 import '../../../domain/use_cases/check_password_status.dart';
 import '../../../domain/use_cases/process_email.dart';
 import '../../pages/register_password_page.dart';
 import '../../pages/register_personal_page.dart';
+import '../../pages/register_schedule_page.dart';
 
 part 'register_inherited.dart';
 part 'register_state.dart';
@@ -44,11 +46,51 @@ class _RegisterControllerState extends State<RegisterController> {
     });
   }
 
+  PersonalInformation _personalInformation = PersonalInformation(
+    listGoalActivation: const [
+      'Retirement',
+      'Saving',
+      'Marriage',
+    ],
+    listMonthlyExpense: const [
+      'Rp. 0 - 5.000.000',
+      'Rp. 5.000.000 - 10.000.000',
+      '> Rp. 10.000.000',
+    ],
+    listMonthlyIncome: const [
+      'Rp. 0 - 5.000.000',
+      'Rp. 5.000.000 - 10.000.000',
+      '> Rp. 10.000.000',
+    ],
+  );
+  PersonalInformation get personalInformation => _personalInformation;
+  set personalInformation(PersonalInformation personalInformation) {
+    setState(() {
+      _personalInformation = personalInformation;
+    });
+  }
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void checkPasswordStatus() {
     passwordStatus = widget.checkPasswordStatus(passwordController.text);
+  }
+
+  void processPersonalInformation(BuildContext currentContext) {
+    if (personalInformation.goalActivation != null &&
+        personalInformation.monthlyExpense != null &&
+        personalInformation.monthlyIncome != null) {
+      push(
+        context: currentContext,
+        page: const RegisterSchedulePage(),
+      );
+      return;
+    }
+    showSnackBar(
+      context: currentContext,
+      message: "Please fill all personal information",
+    );
   }
 
   void processPassword(BuildContext currentContext) {
@@ -114,6 +156,7 @@ class _RegisterControllerState extends State<RegisterController> {
       controllerState: this,
       state: _state,
       passwordStatus: passwordStatus,
+      personalInformation: personalInformation,
       child: widget.child,
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/app_settings.dart';
+import '../controllers/register/register_controller.dart';
 import '../widgets/big_bottom_button.dart';
 import '../widgets/information_dropdown.dart';
 import '../widgets/top_page_numbers.dart';
@@ -20,6 +21,8 @@ class RegisterPersonalPage extends StatelessWidget {
     final bodyText1 = Theme.of(context).textTheme.bodyText1?.copyWith(
           color: textColor,
         );
+    final inherit = RegisterInherited.of(context);
+    final controller = inherit.controllerState;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -52,35 +55,42 @@ class RegisterPersonalPage extends StatelessWidget {
                     const SizedBox(height: sizeL),
                     InformationDropdown(
                       helperText: "Goal for activation",
-                      listItems: const ['Retirement', 'Saving', 'Marriage'],
-                      onSelected: (value) {},
+                      listItems: inherit.personalInformation.listGoalActivation,
+                      onSelected: (value) {
+                        controller.personalInformation =
+                            controller.personalInformation.copyWith(
+                          goalActivation: value,
+                        );
+                      },
                     ),
                     const SizedBox(height: sizeL),
                     InformationDropdown(
                       helperText: "Monthly income",
-                      listItems: const [
-                        'Rp. 0 - 5.000.000',
-                        'Rp. 5.000.000 - 10.000.000',
-                        '> Rp. 10.000.000',
-                      ],
-                      onSelected: (value) {},
+                      listItems: inherit.personalInformation.listMonthlyIncome,
+                      onSelected: (value) {
+                        controller.personalInformation =
+                            controller.personalInformation.copyWith(
+                          monthlyIncome: value,
+                        );
+                      },
                     ),
                     const SizedBox(height: sizeL),
                     InformationDropdown(
                       helperText: "Monthly expense",
-                      listItems: const [
-                        'Rp. 0 - 5.000.000',
-                        'Rp. 5.000.000 - 10.000.000',
-                        '> Rp. 10.000.000',
-                      ],
-                      onSelected: (value) {},
+                      listItems: inherit.personalInformation.listMonthlyExpense,
+                      onSelected: (value) {
+                        controller.personalInformation =
+                            controller.personalInformation.copyWith(
+                          monthlyExpense: value,
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: sizeL),
               BigButtonBottom(
-                onPressed: () {},
+                onPressed: () => controller.processPersonalInformation(context),
                 title: "Next",
               ),
             ],
