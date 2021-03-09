@@ -55,6 +55,7 @@ class RegisterPersonalPage extends StatelessWidget {
                     const SizedBox(height: sizeL),
                     InformationDropdown(
                       helperText: "Goal for activation",
+                      initialValue: inherit.personalInformation.goalActivation,
                       listItems: inherit.personalInformation.listGoalActivation,
                       onSelected: (value) {
                         controller.personalInformation =
@@ -66,6 +67,7 @@ class RegisterPersonalPage extends StatelessWidget {
                     const SizedBox(height: sizeL),
                     InformationDropdown(
                       helperText: "Monthly income",
+                      initialValue: inherit.personalInformation.monthlyIncome,
                       listItems: inherit.personalInformation.listMonthlyIncome,
                       onSelected: (value) {
                         controller.personalInformation =
@@ -77,6 +79,7 @@ class RegisterPersonalPage extends StatelessWidget {
                     const SizedBox(height: sizeL),
                     InformationDropdown(
                       helperText: "Monthly expense",
+                      initialValue: inherit.personalInformation.monthlyExpense,
                       listItems: inherit.personalInformation.listMonthlyExpense,
                       onSelected: (value) {
                         controller.personalInformation =

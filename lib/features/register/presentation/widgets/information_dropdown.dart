@@ -8,12 +8,14 @@ class InformationDropdown extends StatefulWidget {
     required this.helperText,
     required this.listItems,
     required this.onSelected,
+    this.initialValue,
     this.notSelectedText = "Choose Option",
   }) : super(key: key);
   
   final String notSelectedText;
   final String helperText;
   final List<String> listItems;
+  final String? initialValue;
   final void Function(String value) onSelected;
 
   @override
@@ -22,6 +24,12 @@ class InformationDropdown extends StatefulWidget {
 
 class _InformationDropdownState extends State<InformationDropdown> {
   String? _dropdownValue;
+
+  @override
+  void initState() { 
+    super.initState();
+    _dropdownValue = widget.initialValue;
+  }
 
   @override
   Widget build(BuildContext context) {
