@@ -8,6 +8,7 @@ class RegisterInherited extends InheritedWidget {
     required this.passwordStatus,
     required this.personalInformation,
     required Widget child,
+    this.scheduleVideoCall,
   }) : super(
           key: key,
           child: child,
@@ -32,11 +33,13 @@ class RegisterInherited extends InheritedWidget {
   final RegisterState state;
   final PasswordStatus passwordStatus;
   final PersonalInformation personalInformation;
+  final DateTime? scheduleVideoCall;
 
   @override
   bool updateShouldNotify(RegisterInherited oldWidget) {
     return oldWidget.state != state ||
         oldWidget.passwordStatus != passwordStatus ||
-        oldWidget.personalInformation != personalInformation;
+        oldWidget.personalInformation != personalInformation ||
+        oldWidget.scheduleVideoCall != scheduleVideoCall;
   }
 }

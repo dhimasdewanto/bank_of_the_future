@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/app_settings.dart';
@@ -23,6 +24,7 @@ class RegisterSchedulePage extends StatelessWidget {
         );
     final inherit = RegisterInherited.of(context);
     final controller = inherit.controllerState;
+    final schedule = inherit.scheduleVideoCall;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -55,9 +57,11 @@ class RegisterSchedulePage extends StatelessWidget {
                     const SizedBox(height: sizeL),
                     ScheduleSelectButton(
                       title: "Date",
-                      value: "- Choose Date -",
-                      onPressed: () {
-                        showDatePicker(
+                      value: schedule == null
+                          ? "- Choose Date -"
+                          : "${schedule.day} - ${schedule.month} - ${schedule.year}",
+                      onPressed: () async {
+                        final date = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime.now(),
@@ -65,16 +69,34 @@ class RegisterSchedulePage extends StatelessWidget {
                             const Duration(days: 30),
                           ),
                         );
+                        final dateTime = schedule ?? DateTime.now();
+                        controller.scheduleVideoCall = DateTime(
+                          date?.year ?? dateTime.year,
+                          date?.month ?? dateTime.month,
+                          date?.day ?? dateTime.day,
+                          dateTime.hour,
+                          dateTime.minute,
+                        );
                       },
                     ),
                     const SizedBox(height: sizeM),
                     ScheduleSelectButton(
                       title: "Time",
-                      value: "- Choose Time -",
-                      onPressed: () {
-                        showTimePicker(
+                      value: schedule == null
+                          ? "- Choose Time -"
+                          : "${schedule.hour}:${schedule.minute}",
+                      onPressed: () async {
+                        final time = await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay.now(),
+                        );
+                        final dateTime = schedule ?? DateTime.now();
+                        controller.scheduleVideoCall = DateTime(
+                          dateTime.year,
+                          dateTime.month,
+                          dateTime.day,
+                          time?.hour ?? 0,
+                          time?.minute ?? 0,
                         );
                       },
                     ),

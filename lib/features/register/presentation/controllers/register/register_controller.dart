@@ -179,6 +179,7 @@ class _RegisterControllerState extends State<RegisterController> {
       state: _state,
       passwordStatus: passwordStatus,
       personalInformation: personalInformation,
+      scheduleVideoCall: scheduleVideoCall,
       child: widget.child,
     );
   }
