@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/register/register_controller.dart';
+import 'ios_date_time_container.dart';
 import 'schedule_select_button.dart';
 
 class ScheduleDatePicker extends StatelessWidget {
@@ -102,43 +103,21 @@ class ScheduleDatePicker extends StatelessWidget {
             builder: (context) {
               DateTime? tempPickedDate;
 
-              return Container(
-                height: 250,
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CupertinoButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Cancel'),
-                        ),
-                        CupertinoButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(tempPickedDate);
-                          },
-                          child: const Text('Done'),
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      height: 0,
-                      thickness: 1,
-                    ),
-                    Expanded(
-                      child: CupertinoDatePicker(
-                        initialDateTime: scheduleDate ?? DateTime.now(),
-                        minimumDate: minDate,
-                        maximumDate: maxDate,
-                        mode: CupertinoDatePickerMode.date,
-                        onDateTimeChanged: (dateTime) {
-                          tempPickedDate = dateTime;
-                        },
-                      ),
-                    ),
-                  ],
+              return IOSDateTimeContainer(
+                onDone: () {
+                  Navigator.of(context).pop(tempPickedDate);
+                },
+                onCancel: () {
+                  Navigator.of(context).pop();
+                },
+                pickerWidget: CupertinoDatePicker(
+                  initialDateTime: scheduleDate ?? DateTime.now(),
+                  minimumDate: minDate,
+                  maximumDate: maxDate,
+                  mode: CupertinoDatePickerMode.date,
+                  onDateTimeChanged: (dateTime) {
+                    tempPickedDate = dateTime;
+                  },
                 ),
               );
             },
