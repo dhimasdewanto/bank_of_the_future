@@ -4,6 +4,7 @@ import '../../../../../core/navigators.dart';
 import '../../../../../core/snackbars.dart';
 import '../../../domain/entitites/password_status.dart';
 import '../../../domain/entitites/personal_information.dart';
+import '../../../domain/entitites/schedule_date_time.dart';
 import '../../../domain/use_cases/check_password_status.dart';
 import '../../../domain/use_cases/process_email.dart';
 import '../../pages/register_password_page.dart';
@@ -70,9 +71,9 @@ class _RegisterControllerState extends State<RegisterController> {
     });
   }
 
-  DateTime? _scheduleVideoCall;
-  DateTime? get scheduleVideoCall => _scheduleVideoCall;
-  set scheduleVideoCall(DateTime? scheduleVideoCall) {
+  ScheduleDateTime _scheduleVideoCall = ScheduleDateTime();
+  ScheduleDateTime get scheduleVideoCall => _scheduleVideoCall;
+  set scheduleVideoCall(ScheduleDateTime scheduleVideoCall) {
     setState(() {
       _scheduleVideoCall = scheduleVideoCall;
     });
@@ -86,7 +87,7 @@ class _RegisterControllerState extends State<RegisterController> {
   }
 
   void processSchedule(BuildContext currentContext) {
-    if (scheduleVideoCall == null) {
+    if (scheduleVideoCall.date == null || scheduleVideoCall.time == null) {
       showSnackBar(
         context: currentContext,
         message: "Please select schedule for video call",

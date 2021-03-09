@@ -7,8 +7,8 @@ class RegisterInherited extends InheritedWidget {
     required this.state,
     required this.passwordStatus,
     required this.personalInformation,
+    required this.scheduleVideoCall,
     required Widget child,
-    this.scheduleVideoCall,
   }) : super(
           key: key,
           child: child,
@@ -20,6 +20,7 @@ class RegisterInherited extends InheritedWidget {
           controllerState: _RegisterControllerState(),
           state: const ReadyRegisterState(),
           passwordStatus: PasswordStatus(),
+          scheduleVideoCall: ScheduleDateTime(),
           personalInformation: PersonalInformation(
             listGoalActivation: [],
             listMonthlyExpense: [],
@@ -33,7 +34,7 @@ class RegisterInherited extends InheritedWidget {
   final RegisterState state;
   final PasswordStatus passwordStatus;
   final PersonalInformation personalInformation;
-  final DateTime? scheduleVideoCall;
+  final ScheduleDateTime scheduleVideoCall;
 
   @override
   bool updateShouldNotify(RegisterInherited oldWidget) {

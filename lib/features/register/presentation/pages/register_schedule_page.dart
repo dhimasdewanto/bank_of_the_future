@@ -91,6 +91,8 @@ class RegisterSchedulePage extends StatelessWidget {
     final inherit = RegisterInherited.of(context);
     final controller = inherit.controllerState;
     final schedule = inherit.scheduleVideoCall;
+    final scheduleDate = schedule.date;
+    final scheduleTime = schedule.time;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -125,46 +127,38 @@ class RegisterSchedulePage extends StatelessWidget {
                     const SizedBox(height: sizeL),
                     ScheduleSelectButton(
                       title: "Date",
-                      value: schedule == null
+                      value: scheduleDate == null
                           ? "- Choose Date -"
-                          : "${_getDayName(schedule.weekday)}, ${schedule.day} ${_getMonthName(schedule.month)} ${schedule.year}",
+                          : "${_getDayName(scheduleDate.weekday)}, ${scheduleDate.day} ${_getMonthName(scheduleDate.month)} ${scheduleDate.year}",
                       onPressed: () async {
-                        final date = await showDatePicker(
+                        final newDate = await showDatePicker(
                           context: context,
-                          initialDate: schedule ?? DateTime.now(),
+                          initialDate: scheduleDate ?? DateTime.now(),
                           firstDate: DateTime.now(),
                           lastDate: DateTime.now().add(
                             const Duration(days: 30),
                           ),
                         );
-                        final dateTime = schedule ?? DateTime.now();
-                        controller.scheduleVideoCall = DateTime(
-                          date?.year ?? dateTime.year,
-                          date?.month ?? dateTime.month,
-                          date?.day ?? dateTime.day,
-                          dateTime.hour,
-                          dateTime.minute,
+                        controller.scheduleVideoCall =
+                            controller.scheduleVideoCall.copyWith(
+                          date: newDate,
                         );
                       },
                     ),
                     const SizedBox(height: sizeM),
                     ScheduleSelectButton(
                       title: "Time",
-                      value: schedule == null
+                      value: scheduleTime == null
                           ? "- Choose Time -"
-                          : "${schedule.hour.toString().padLeft(2, '0')}:${schedule.minute.toString().padLeft(2, '0')}",
+                          : "${scheduleTime.hour.toString().padLeft(2, '0')}:${scheduleTime.minute.toString().padLeft(2, '0')}",
                       onPressed: () async {
-                        final time = await showTimePicker(
+                        final newTime = await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay.now(),
                         );
-                        final dateTime = schedule ?? DateTime.now();
-                        controller.scheduleVideoCall = DateTime(
-                          dateTime.year,
-                          dateTime.month,
-                          dateTime.day,
-                          time?.hour ?? 0,
-                          time?.minute ?? 0,
+                        controller.scheduleVideoCall =
+                            controller.scheduleVideoCall.copyWith(
+                          time: newTime,
                         );
                       },
                     ),
