@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/app_settings.dart';
 import '../widgets/big_bottom_button.dart';
+import '../widgets/information_dropdown.dart';
 import '../widgets/top_page_numbers.dart';
 
 class RegisterPersonalPage extends StatelessWidget {
@@ -49,6 +50,31 @@ class RegisterPersonalPage extends StatelessWidget {
                       style: bodyText1,
                     ),
                     const SizedBox(height: sizeL),
+                    InformationDropdown(
+                      helperText: "Goal for activation",
+                      listItems: const ['Retirement', 'Saving', 'Marriage'],
+                      onSelected: (value) {},
+                    ),
+                    const SizedBox(height: sizeL),
+                    InformationDropdown(
+                      helperText: "Monthly income",
+                      listItems: const [
+                        'Rp. 0 - 5.000.000',
+                        'Rp. 5.000.000 - 10.000.000',
+                        '> Rp. 10.000.000',
+                      ],
+                      onSelected: (value) {},
+                    ),
+                    const SizedBox(height: sizeL),
+                    InformationDropdown(
+                      helperText: "Monthly expense",
+                      listItems: const [
+                        'Rp. 0 - 5.000.000',
+                        'Rp. 5.000.000 - 10.000.000',
+                        '> Rp. 10.000.000',
+                      ],
+                      onSelected: (value) {},
+                    ),
                   ],
                 ),
               ),
