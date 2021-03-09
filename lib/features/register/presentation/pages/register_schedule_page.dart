@@ -84,7 +84,7 @@ class RegisterSchedulePage extends StatelessWidget {
                       title: "Time",
                       value: schedule == null
                           ? "- Choose Time -"
-                          : "${schedule.hour}:${schedule.minute}",
+                          : "${schedule.hour.toString().padLeft(2, '0')}:${schedule.minute.toString().padLeft(2, '0')}",
                       onPressed: () async {
                         final time = await showTimePicker(
                           context: context,
